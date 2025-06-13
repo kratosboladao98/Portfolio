@@ -28,7 +28,6 @@ html {
 }
 
 body {
-    font-family: var(--font-family-sans);
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
@@ -254,7 +253,7 @@ nav {
     color: var(--primary-color);
 }
 
-/* Opcional: Efeito de fundo sutil (ex: bolhas, formas geométricas) */
+/* Efeito de fundo sutil  */
 .hero::before {
     content: '';
     position: absolute;
@@ -266,6 +265,7 @@ nav {
     left: -50px;
     animation: bubble1 10s infinite ease-in-out;
 }
+
 .hero::after {
     content: '';
     position: absolute;
@@ -277,20 +277,19 @@ nav {
     right: -30px;
     animation: bubble2 12s infinite ease-in-out;
 }
+
 @keyframes bubble1 {
     0%, 100% { transform: translate(0, 0); }
     50% { transform: translate(20px, 20px); }
 }
+
 @keyframes bubble2 {
     0%, 100% { transform: translate(0, 0); }
     50% { transform: translate(-20px, -20px); }
-} */
+} 
 
 /* | Sobre Mim | */
 
-/* assets/css/style.css */
-
-/* Seção Sobre Mim */
 .about-content {
     display: flex;
     flex-wrap: wrap; 
@@ -421,8 +420,7 @@ nav {
     padding: var(--spacing-xs);
     border: 1px solid var(--border-color);
     border-radius: 5px;
-    font-size: 1em;
-    font-family: var(--font-family-sans); 
+    font-size: 1em; 
 }
 
 .contact-form textarea {
@@ -470,9 +468,6 @@ footer p {
 
 /* |Responsividade| */
 
-/* assets/css/style.css */
-
-/* Media Queries para Responsividade */
 @media (max-width: 768px) {
     h1 { font-size: 2.2em; }
     h2 { font-size: 1.8em; }
