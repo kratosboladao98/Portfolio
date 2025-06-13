@@ -4,12 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
 
     if (burgerMenu && navLinks) {
-        burgerMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active'); 
-            burgerMenu.classList.toggle('open'); 
+        burgerMenu.addEventListener('click', (event) => {
+            event.stopPropagation(); // Impede que o clique no hambúrguer propague para o document
+            navLinks.classList.toggle('active');
+            burgerMenu.classList.toggle('open');
         });
 
-        // Fechar o menu ao clicar em um link (apenas em mobile)
+        // Fechar o menu ao clicar em um link
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('active')) {
@@ -18,20 +19,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        // Fechar o menu ao clicar FORA do menu ou do botão do hambúrguer
+        document.addEventListener('click', (event) => {
+            // Verifica se o clique não foi dentro do navLinks e nem no burgerMenu
+            if (!navLinks.contains(event.target) && !burgerMenu.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                burgerMenu.classList.remove('open');
+            }
+        });
     }
 
     // 2. Rolagem Suave para Links de Navegação
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault(); 
+            e.preventDefault();
 
-            const targetId = this.getAttribute('href'); 
-            const targetElement = document.querySelector(targetId); 
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
                 // Rola suavemente para o elemento
                 window.scrollTo({
-                    top: targetElement.offsetTop - (document.querySelector('header').offsetHeight || 0), 
+                    top: targetElement.offsetTop - (document.querySelector('header').offsetHeight || 0),
                     behavior: 'smooth'
                 });
             }
@@ -47,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let current = '';
 
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - (document.querySelector('header').offsetHeight || 0) - 50; 
+            const sectionTop = section.offsetTop - (document.querySelector('header').offsetHeight || 0) - 50;
             const sectionHeight = section.clientHeight;
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                 current = section.getAttribute('id');
@@ -63,6 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.addEventListener('scroll', highlightNavLink);
-    highlightNavLink(); 
+    highlightNavLink();
 
 });
